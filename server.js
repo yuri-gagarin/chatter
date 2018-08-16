@@ -5,6 +5,8 @@ const router = express.Router();
 const routes = require('./router/routes');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const config = require('./config/config.js');
+const ConnectMongo = require('connect-mongo')(session);
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -15,14 +17,18 @@ app.use(cookieParser());
 
 if (env === 'development') {
     app.use(session({
-        secret: 'mydogalfa',
+        secret: config.sessionSecret,
         name: 'my-cookie',
         resave: true,
         saveUninitialized: true    
     }));
 } else {
     app.use(session({
-        secret: 'mydogalfa',
+        secret: config.sessionSecret,
+        store: new ConnectMongo({
+            url: config.dbURL,
+            stringify: true
+        }),
         name: 'my-cookie',
         resave: true,
         saveUninitialized: true    
