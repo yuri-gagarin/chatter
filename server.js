@@ -6,7 +6,8 @@ const routes = require('./router/routes');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const config = require('./config/config.js');
-const ConnectMongo = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose');
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -16,6 +17,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 
 if (env === 'development') {
+    mongoose.connect('mongodb://localhost:27017/chatter', {useNewUrlParser: true});
+
     app.use(session({
         secret: config.sessionSecret,
         name: 'my-cookie',
@@ -23,10 +26,12 @@ if (env === 'development') {
         saveUninitialized: true    
     }));
 } else {
+    mongoose.connect(config.dbURL, {useNewUrlParser: true});
+
     app.use(session({
         secret: config.sessionSecret,
-        store: new ConnectMongo({
-            url: config.dbURL,
+        store: new MongoStore({
+            mongooseConnection: mongoose.connections[0],
             stringify: true
         }),
         name: 'my-cookie',
