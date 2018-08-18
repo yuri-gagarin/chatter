@@ -9,7 +9,7 @@ module.exports = function(router) {
         });
     
     router
-        .route('/rooms')
+        .route('/chatrooms')
         .get(function(req, res, next) {
             res.render('chatrooms.ejs');
             next();
