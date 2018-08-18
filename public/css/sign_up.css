@@ -1,0 +1,19 @@
+.sign-up-container {
+    background-color: pink;
+    
+}
+
+.sign-up-form {
+    display: block;
+    
+}
+
+.user-name-input {
+    display: block;   
+}
+.password-input {
+    display: block;
+}
+.submit {
+    display: block;
+}

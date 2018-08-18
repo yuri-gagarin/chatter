@@ -6,4 +6,5 @@ module.exports = function(router) {
         successRedirect:'/chatrooms',
         failureRedirect: '/'
     }));
+
 };

@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const envVar = require('dotenv').config();
 
+const bodyParser = require('body-parser');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const router = express.Router();
@@ -22,6 +23,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(passport.initialize());
+app.use(bodyParser.urlencoded({extended: false}));
 
 if (environment === 'development') {
     mongoose.connect('mongodb://localhost:27017/chatter', {useNewUrlParser: true});
@@ -33,7 +35,12 @@ if (environment === 'development') {
         saveUninitialized: true    
     }));
 } else {
-    mongoose.connect(config.dbURL, {useNewUrlParser: true});
+  
+    mongoose.connect(config.dbURL, {useNewUrlParser: true}).catch((err) => {
+
+        console.log(err.name); 
+        console.log(err.message);
+    });
 
     app.use(session({
         secret: config.sessionSecret,
@@ -47,7 +54,7 @@ if (environment === 'development') {
     }));
 };
 
-require("./auth/passportAuth.js")(passport, FacebookStrategy, config, mongoose);
+require("./auth/passportAuth.js")(passport, FacebookStrategy, config);
 
 
 
