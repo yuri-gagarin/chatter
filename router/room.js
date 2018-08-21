@@ -1,4 +1,5 @@
 const express = require('express');
+const protectRoute = require('./../controllers/authenticationController');
 
 module.exports = function(router) {
     router
@@ -10,8 +11,9 @@ module.exports = function(router) {
     
     router
         .route('/chatrooms')
-        .get(function(req, res, next) {
-            res.render('chatrooms.ejs');
+        .get(protectRoute, function(req, res, next) {
+            res.render('chatrooms.ejs', {title: "Chatrooms", user: req.user});
+            console.log(req.isAuthenticated());
             next();
         });
     

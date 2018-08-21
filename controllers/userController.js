@@ -4,26 +4,31 @@ const config = require('./../config/config');
 
 module.exports = {
     createUser: function(req, res, next) {
-        if (req.body.username && req.body.password) {
+        const userParams = {
+            username: req.body.username,
+            password: req.body.password,
+            passwordConf: req.body.password_confirm
+        };
+
+        if (userParams.username && (userParams.password === userParams.passwordConf)) {
+
             let user  = new User({
-                username: req.body.username,
-                password: req.body.password,
-                fullname: ''
+                username: userParams.username,
+                password: userParams.password,
+                fullname: userParams.username
             });
-            user.save((err) => {
+
+            user.save((err, user) => {
                 if (err) {
                     console.log(err);
+                    res.send(err);
                 }
                 else {
-                    res.send(user);
-                    res.render('index.ejs');
+                    res.redirect('/'); 
                 }
+                next();
             });
         }
-        else {
-            res.render('sign_up.ejs',  {title: "Login"});
-        }
-        next()
     },
 
     getUser: function(req, res, next) {

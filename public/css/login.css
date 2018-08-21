@@ -4,12 +4,12 @@
     font-size: 22px;
 }
 
-.sign-up-container {
+.log-in-container {
     background-color: lightgrey;
     
 }
 
-.sign-up-form {
+.login-form {
     display: block;
     padding-left: 10px;
     padding-bottom: 30px;
@@ -36,7 +36,7 @@
     margin: 10px 5px 10px 5px;
 
 }
-.sign-up-btn {
+.login-btn {
     display: block;
     color: white;
     padding: 5px 5px 5px 5px;
@@ -45,7 +45,7 @@
     width: 75px;
     background-color: green;
 }
-.sign-up-btn:hover {
+.login-btn:hover {
     background-color: lightgreen;
     color: white;
 }

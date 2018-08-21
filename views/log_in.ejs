@@ -3,21 +3,22 @@
 <head>
 	<meta charset="UTF-8">
 	<title><%= title %></title>
-	<link rel="stylesheet" href="./../css/sign_up.css">
+	<link rel="stylesheet" href="./../css/login.css">
 </head>
 <body>
 <div class="log-in-container">
-	<h1 class="hm-title"><%= title %></h1>
-	<form name="sign-up-form" class="sign-up-form" action="/sign_up" onsubmit="return validateForm()" method="post">
+	<h1 class="hm-form-title"><%= title %></h1>
+        <form name="login-form" class="login-form" action="/login" onsubmit="return validateForm()" method="post">
+        <p id="form-helper"></p>
         <p>Name</p>
         <input class="user-name-input" type='text' name="username">
         <p>Password</p>
         <input class="password-input" type="text" name="password">
         <p>Confirm Password</p>
-        <input class="password-confirm" type="text" name="password_confirm">
-        <button class="submit" type="submit">Sign Up</button>
+        <input class="password-confirm-input" type="text" name="password_confirm">
+        <button class="login-btn" type="submit">Log In</button>
 </div>
 	
-<script type="application/javascript" src="./../scripts/sign_up.js"></script>
+<script type="application/javascript" src="./../scripts/login.js"></script>
 </body>
 </html>

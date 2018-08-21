@@ -16,7 +16,7 @@ module.exports = function(passport, FacebookStrategy, config) {
         clientID: config.fb.appID,
         clientSecret: config.fb.appSecret,
         callbackURL: config.fb.callBackURL,
-        profileFields: ['id', 'displayName', 'photos']
+        profileFields: ['id', 'displayName', 'photos', 'emails']
     }, function(accessToken, refreshToken, profile, done) {
         ///check if user is already in our database return profile
         ///if not create and return a profile
@@ -28,11 +28,13 @@ module.exports = function(passport, FacebookStrategy, config) {
                 let newUser = new User({
                     profileID: profile.id,
                     fullname: profile.displayName,
-                    profilePic: profile.photos[0].value || ''
+                    profilePic: profile.photos[0].value || '',
+                    username: profile.emails[0].value,
+                    password: 'temppassword'
                 });
 
-                newUser.save(function(err) {
-                    done(null, newUser);
+                newUser.save(function(err, user) {
+                    done(null, user);
                 });
 
             }

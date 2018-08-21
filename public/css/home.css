@@ -3,9 +3,9 @@
 .hm-container {
 	position:absolute;
     
-	width: 271px;
+	width: 350px;
     
-	height: 200px;
+	height: 300px;
     border:1px solid;
     top:0px;
     bottom:0px;
@@ -24,12 +24,23 @@
 }
 
 .hm-login-link {
-    display: block;
+    display: inline-block;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
     height: 20px;
     width: 60px;
-    border-bottom: 2px solid black;
     margin-top: 20px;
-    margin-left: 10px;
-    padding-bottom: 5px;
     font-size: 19px;
+}
+
+.hm-signup-link {
+    display: inline-block;
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+    height: 20px;
+    width: 75px;
+    font-size: 19px;
+
 }
