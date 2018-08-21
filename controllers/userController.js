@@ -1,6 +1,6 @@
 const User = require('./../models/User');
 const config = require('./../config/config');
-
+const encrypter = require('./../util/passwordEncrypt');
 
 module.exports = {
     createUser: function(req, res, next) {
@@ -18,17 +18,20 @@ module.exports = {
                 fullname: userParams.username
             });
 
-            user.save((err, user) => {
-                if (err) {
-                    console.log(err);
-                    res.send(err);
-                }
-                else {
-                    res.redirect('/'); 
-                }
-                next();
+            encrypter.encrypt(user).then(function(user) {
+                user.save((err, user) => {
+                    if (err) {
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else {
+                        res.redirect('/'); 
+                    }
+                    next();
+                });
             });
         }
+
     },
 
     getUser: function(req, res, next) {

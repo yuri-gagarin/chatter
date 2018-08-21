@@ -1,5 +1,7 @@
 const User = require("./../models/User");
-module.exports = function(passport, LocalStrategy) {
+const passwordEncrypter = require("./../util/passwordEncrypt");
+
+module.exports = function(passport, LocalStrategy, config) {
 
     passport.serializeUser(function(user, done) {
         done(null, user.id);
@@ -17,12 +19,18 @@ module.exports = function(passport, LocalStrategy) {
     }, function(username, password, done) {
         User.findOne({username: username})
             .then((user) => {
-                if(!user || user.password != password) {
+                if(!user) {
                     done(null, false, {error: 'Invalid username or password'});
                 }
+                else if (user) {
+                    if (passwordEncrypter.decrypt(password, user.password)) {
+                        done(null, user);
+                    }           
+                }
                 else {
-                    done(null, user);
+                    done(null, false, {error: "Invalid username or password"});
                 }
             })
+            .catch((err) => err);
     }));
 }

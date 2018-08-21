@@ -1,13 +1,20 @@
 const passport = require('passport');
 
 module.exports = function(router) {
-    router.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
-    router.get('/auth/facebook/callback', passport.authenticate('facebook',{
-        successRedirect:'/chatrooms',
-        failureRedirect: '/'
-    }));
+    router
+        .route('/auth/facebook')
+        .get(passport.authenticate('facebook', {scope: ['email']}));
 
-    router.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), function(req, res) {
-        res.redirect('/chatrooms');
-    });
+    router
+        .route('/auth/facebook/callback')
+        .get(passport.authenticate('facebook',{
+            successRedirect:'/chatrooms',
+            failureRedirect: '/'
+        }));
+
+    router
+        .route('/login')
+        .post(passport.authenticate('local', {failureRedirect: '/login'}), function(req, res) {
+            res.redirect('/chatrooms');
+        });
 };
