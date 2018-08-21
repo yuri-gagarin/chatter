@@ -1,21 +1,15 @@
 const express = require('express');
+const roomController = require('./../controllers/roomController');
 const protectRoute = require('./../controllers/authenticationController');
 
 module.exports = function(router) {
     router
         .route('/')
-        .get(function(req, res, next) {
-            res.render('index.ejs', {title: "Chattter"});
-            next();
-        });
+        .get(roomController.index);
     
     router
         .route('/chatrooms')
-        .get(protectRoute, function(req, res, next) {
-            res.render('chatrooms.ejs', {title: "Chatrooms", user: req.user});
-            console.log(req.isAuthenticated());
-            next();
-        });
+        .get(protectRoute, roomController.chatrooms);
     
     ///session test 
     router
