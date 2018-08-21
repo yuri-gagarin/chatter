@@ -3,12 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title><%= title %></title>
-	<link rel="stylesheet" href="./../css/sign_up.css">
+	<link rel="stylesheet" href="./../css/signup.css">
 </head>
 <body>
 <div class="sign-up-container">
 	<h1 class="hm-form-title">Sign Up</h1>
-        <form name="sign-up-form" class="sign-up-form" onsubmit="return validateForm()" action="/sign_up" method="post" >
+        <form name="sign-up-form" class="sign-up-form" onsubmit="return validateForm()" action="/user" method="post" >
         <p id="form-helper"></p>
          <input class="user-name-input" type='text' name="username">
         <span>Password:</span><input class="password-input" type="text" name="password">
@@ -16,6 +16,6 @@
         <button class="sign-up-btn" type="submit">Sign Up</button>
 </div>
 	
-<script type="application/javascript" src="./../scripts/sign_up.js"></script>
+<script type="application/javascript" src="./../scripts/signup.js"></script>
 </body>
 </html>

@@ -35,15 +35,5 @@ module.exports = {
         let user;
     },
 
-    logIn: function(req, res, next) {
-        res.render('log_in.ejs', {title: 'Login'});
-        next();
-    },
-
-    signUp: function(req, res, next) {
-        res.render('sign_up.ejs', {title: 'Sign Up'});
-        next();
-    }
-
 };
 

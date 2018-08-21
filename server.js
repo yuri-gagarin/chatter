@@ -6,6 +6,7 @@ const envVar = require('dotenv').config();
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
 const routes = require('./router/routes');
 const cookieParser = require('cookie-parser');
@@ -17,6 +18,7 @@ const mongoose = require('mongoose');
 const environment = process.env.NODE_ENV || 'development';
 
 require("./auth/passportAuth.js")(passport, FacebookStrategy, config);
+require("./auth/localAuth.js")(passport, LocalStrategy, config);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

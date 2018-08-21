@@ -4,14 +4,12 @@ const bodyParser = require('body-parser');
 module.exports = {
 
     signUp: function(req, res, next) {
-        res.send(req.params);
-        console.log(req.params);
+        res.render('signup.ejs', {title: "Sign Up"})
         next();
     },
 
     logIn: function(req, res, next) {
-        res.send(req.body);
-        console.log(req.body);
+        res.render('login.ejs', {title: "Login"});
         next();
     }
 
